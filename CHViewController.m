@@ -12,13 +12,12 @@
 
     self.view.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
 
-    self.navigationItem.title = @"History";
+    self.navigationItem.title = @"Lịch sử";
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor systemOrangeColor];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearHistory)];
-
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Xong" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dọn dẹp" style:UIBarButtonItemStylePlain target:self action:@selector(clearHistory)];
 
     self.tableView = [[UITableView alloc] init];
     self.tableView.delegate = self;
@@ -114,7 +113,7 @@
 
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Delete" handler:^(UIContextualAction *action, __kindof UIView *sourceView, void (^completionHandler)(BOOL)) {
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Xóa" handler:^(UIContextualAction *action, __kindof UIView *sourceView, void (^completionHandler)(BOOL)) {
         [[CHHistoryManager sharedManager] remove:indexPath.row];
         self.data = [[CHHistoryManager sharedManager] history];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -123,7 +122,7 @@
         completionHandler(YES);
     }];
 
-    UIContextualAction *copyAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Copy\nResult" handler:^(UIContextualAction *action, __kindof UIView *sourceView, void (^completionHandler)(BOOL)) {
+    UIContextualAction *copyAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Sao\nchép" handler:^(UIContextualAction *action, __kindof UIView *sourceView, void (^completionHandler)(BOOL)) {
         AudioServicesPlaySystemSound(1519);
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         NSString *equation = self.data[indexPath.row];
@@ -161,7 +160,7 @@
     ]];
 
     UILabel *label = [[UILabel alloc] init];
-    label.text = @"No History";
+    label.text = @"Lịch sử trống";
     label.font = [UIFont roundedFontOfSize:24 weight:UIFontWeightRegular];
     [view addSubview:label];
     label.translatesAutoresizingMaskIntoConstraints = NO;
